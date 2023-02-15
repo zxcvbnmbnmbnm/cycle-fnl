@@ -9,46 +9,44 @@
   <body>
     <h1>hello world</h1>
 
-    <div class="container">
-
-    </div>
+    <div class="container"></div>
 
     <button onclick="addd()">add name</button>
     <script>
+      const container = document.querySelector(".container");
 
-  const container = document.querySelector(".container")
-
-    const makeApi =()=>{
+      const makeApi = () => {
         fetch("/data", { method: "GET" })
           .then((res) => res.json())
           .then((res) => {
-            
-            res.map((obj)=>{
-                const ele = document.createElement("div")
-                ele.innerHTML = `Name = ${obj.name}, roll = ${obj.roll}`
-                container.append(ele)
-            })
-            
+            res.map((obj) => {
+              const ele = document.createElement("div");
+              ele.innerHTML = `Name = ${obj.name}, roll = ${obj.roll}`;
+              container.append(ele);
+            });
           })
           .catch((err) => {
             console.log(err);
-          })
-    }         
+          });
+      };
 
       const addd = () => {
+        let start = Date.now();
         fetch("/dataa")
           .then((res) => res.json())
           .then((res) => {
-                const ele = document.createElement("div")
-                ele.innerHTML = `Name = ${res.name}, roll = ${res.roll}`
-                container.append(ele)
+            const ele = document.createElement("div");
+            ele.innerHTML = `Name = ${res.name}, roll = ${res.roll}`;
+            container.append(ele);
+            let end = Date.now();
+            console.log(end - start);
           })
           .catch((err) => {
             console.log(err);
-          })
+          });
       };
 
-makeApi()
+      makeApi();
     </script>
   </body>
 </html>
